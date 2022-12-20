@@ -1,2 +1,3 @@
 # sportsy
-Safa and Emma - ICS4U Software Development project 
+## Safa and Emma
+Software development final project 
