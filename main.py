@@ -1,17 +1,18 @@
-# We're using Kivy, so we'll need the kivy module
-import kivy
+from kivymd.app import MDApp
+from kivymd.uix.label import MDLabel
+from kivy.lang import Builder
+from kivy.uix.gridlayout import GridLayout
 
-# We need the App class. Our application is going to inherit from it.
-from kivy.app import App
+Builder.load_file('box1.kv')
 
-# We also need the Label widget.
-from kivy.uix.button import Label
+class main_kv(GridLayout):
+    pass
 
-# Here comes the application class. It inherits from App.
-class HelloWorldApp(App):
+class MainApp(MDApp):
     def build(self):
-        return Label(text='yay!')
+        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "BlueGray"
+        return main_kv()
 
-# And this is where we actually run the app.
-if __name__ == '__main__':
-    HelloWorldApp().run()
+
+MainApp().run() 
