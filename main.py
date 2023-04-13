@@ -1,11 +1,24 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, flash, redirect
+import sqlite3
+from sqlite3 import Error
+
+# ...
 
 app = Flask(__name__)
 
+global names
+name_message = { 'message' : 'Welcome to Sportsy',
+          'firstname' :'' }
 
-@app.route('/', methods=['GET'])
+names = [name_message]
+
+@app.route('/', methods=('GET', 'POST'))
 def index():
-    return render_template('index.html')
+    if request.method == "POST":
+        fname = request.form.get("firstname")
+        name_message['firstname'] = str(fname)
+        return render_template('index.html',  names = names)
+    return render_template('index.html',  names = names)
   
 @app.route('/profile')
 def profile():

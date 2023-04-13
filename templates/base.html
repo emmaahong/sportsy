@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style = 'background-image: url('/static/img/sportsy_bg.png')'>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,11 +8,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   {% block head %}{% endblock %}
 </head>
-<body>
-    <p>hi</p>
+<body class = 'base-body'>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
           <div class="container-fluid">
-              <a class="navbar-brand" href="#">sportsy</a>
+              <a class="navbar-brand" >
+                    <img class = "nav-logo" href="{{ url_for('static', filename='img/logo.png') }}">
+              </a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
                   aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>

@@ -1,3 +1,28 @@
+/* GENERAL */
 html{
-    font-family: sans-serif;
-  }
+  font-family: sans-serif;
+  background-image: url('/sportsy_bg.png');
+}
+
+.nav-logo{
+  height: 30px;
+  width: 100px;
+}
+
+body{
+  background-image: url('sportsy_bg.png');
+  background-repeat: no-repeat;
+}
+
+/* HOME */
+
+/* PROFILE */
+
+/* CALENDAR */
+
+/* ROSTER */
+.roster-textarea{
+  width: 600px;
+  height: 100px;
+  border: 0px;
+}
