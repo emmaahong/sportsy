@@ -32,9 +32,6 @@ def calendar():
 
 @app.route('/roster')
 def roster():
-    if request.method == "POST":
-        injuries = request.form.get("injuries")
-        return render_template('roster.html')
     return render_template('roster.html')
     
 if __name__ == "__main__":
