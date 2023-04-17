@@ -6,6 +6,8 @@ from sqlite3 import Error
 
 app = Flask(__name__)
 
+
+
 global names
 name_message = { 'message' : 'Welcome to Sportsy',
           'firstname' :'' }
@@ -30,6 +32,9 @@ def calendar():
 
 @app.route('/roster')
 def roster():
+    if request.method == "POST":
+        injuries = request.form.get("injuries")
+        return render_template('roster.html')
     return render_template('roster.html')
     
 if __name__ == "__main__":
