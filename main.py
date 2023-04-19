@@ -33,6 +33,14 @@ def calendar():
 @app.route('/roster')
 def roster():
     return render_template('roster.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/log')
+def log():
+    return render_template('log.html')
     
 if __name__ == "__main__":
   app.run(debug=True, port=5000)

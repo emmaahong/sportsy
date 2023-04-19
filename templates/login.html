@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block body %}
-<h1>calendar</h1>
+<div id="login-box">
+    <h1 class = "login-head">login</h1>
+    <form id='login-form' action={{ url_for("login") }} method = "post">
+        <label>username: </label>
+        <input name="username" id = "username" type = "text" placeholder="enter username...">
+
+        <label>password: </label>
+        <input name="password" id = "password" type = "text" placeholder="enter password...">
+
+    </form>
+</div>
+
 {% endblock %}
