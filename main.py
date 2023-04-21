@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 import sqlite3
 from sqlite3 import Error
+from db import add_text
 
 # ...
 
@@ -32,7 +33,18 @@ def calendar():
 
 @app.route('/roster')
 def roster():
-    return render_template('roster.html')
+    return render_template('roster.html', rostername = "yo name")
+#adding textbox to roster
+@app.route("/add_text", methods=["POST","GET"])
+def AddText():
+    if request.method == "POST":
+        text_value = request.form["textv"]
+        #saving to database
+        add_new = add_text(text_value)
+        return redirect(url_for('yo name'))
+    else:
+        return render_template('index.html')
+    
 
 @app.route('/login')
 def login():
