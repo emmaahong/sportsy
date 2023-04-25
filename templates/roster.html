@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+<meta charset = "utf-8">
+<meta name = "viewport" content = "width=device-width, initial-scale = 1">
+<linj rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootsrap/3.4.1/css/bootsrap.min.css">
+    
 {% endblock %}
 
 {% block body %}
 <h1>roster</h1>
+
+<form action = "/add_text" method = "post">
+    <label for = "textv"> Enter name:</label><br>
+    <input type = "text" id = "textv" name = "textv" value=""><br>
+    <input type = "submit" value = "Submit">
+</form>
+
+{{rostername}}
 
 {% endblock %}

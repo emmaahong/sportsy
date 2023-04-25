@@ -1,8 +1,7 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_migrate import Migrate
 import sqlite3
+from sqlite3 import Error
+from init_db import add_text
 
 from flask_login import (
     UserMixin,
@@ -20,7 +19,6 @@ def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
-
 
 # welcome message
 global names
@@ -50,7 +48,18 @@ def calendar():
 
 @app.route('/roster')
 def roster():
-    return render_template('roster.html')
+    return render_template('roster.html', rostername = "yo name")
+#adding textbox to roster
+@app.route("/add_text", methods=["POST","GET"])
+def AddText():
+    if request.method == "POST":
+        text_value = request.form["textv"]
+        #saving to database
+        add_new = add_text(text_value)
+        return redirect(url_for('yo name'))
+    else:
+        return render_template('index.html')
+    
 
 @app.route('/login')
 def login():
