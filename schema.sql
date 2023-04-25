@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS posts;
+
+CREATE TABLE users (
+    usernumber INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    passcode TEXT NOT NULL
+);
+

@@ -1,13 +1,28 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_migrate import Migrate
 import sqlite3
-from sqlite3 import Error
 
-# ...
+from flask_login import (
+    UserMixin,
+    login_user,
+    LoginManager,
+    current_user,
+    logout_user,
+    login_required,
+)
 
+# app initialization
 app = Flask(__name__)
 
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
+# welcome message
 global names
 name_message = { 'message' : 'Welcome to Sportsy',
           'firstname' :'' }
@@ -16,11 +31,14 @@ names = [name_message]
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
+    conn = get_db_connection()
+    username = conn.execute('SELECT * FROM users').fetchall()
+    conn.close()
     if request.method == "POST":
         fname = request.form.get("firstname")
         name_message['firstname'] = str(fname)
         return render_template('index.html',  names = names)
-    return render_template('index.html',  names = names)
+    return render_template('index.html',  names = names, users=users)
   
 @app.route('/profile')
 def profile():

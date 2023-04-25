@@ -14,5 +14,10 @@
         <input name="firstname" id = "firstname" type = "text" placeholder="Enter Firstname...">
     </form>
 
+    {% for user in users %}
+        <div class='users'>
+            <p>{{ user[] }}</p>
+        </div>
+
 
 {% endblock %}
