@@ -1,7 +1,9 @@
-/* GENERAL */
+/* --------------------------------- GENERAL -------------------------------- */
 html{
+  height:100%;
+  width: 100%;
   font-family: sans-serif;
-  background-image: url('/sportsy_bg.png');
+  background-repeat: repeat;
 }
 
 .nav-logo{
@@ -10,26 +12,57 @@ html{
 }
 
 body{
-  background-image: url('sportsy_bg.png');
-  background-repeat: no-repeat;
+  height:100%;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(85, 216, 154) , rgba(4, 48, 27,0.8));
+  background-repeat: round;
 }
 
-/* HOME */
-
-/* PROFILE */
-
-/* CALENDAR */
-
-/* ROSTER */
+/* --------------------------------- ROSTER --------------------------------- */
 .roster-textarea{
   width: 600px;
   height: 100px;
   border: 0px;
 }
 
-/* LOGIN */
-#login-box{
+
+/* ---------------------------------- LOGIN --------------------------------- */
+#login-content{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height:100%;
+  width: 100%;  
+}
+
+#login-box{
+  background-color: rgba(233, 231, 235, 0.6);
+  width: 50%;
+  text-align: center;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3%;
+}
+
+#username{
+  border: none;
+  border-bottom: 2px black solid;
+  background-color: transparent;
+}
+
+#password{
+  border: none;
+  border-bottom: 2px black solid;
+  background-color: transparent;
 }
