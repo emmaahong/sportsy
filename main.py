@@ -3,7 +3,6 @@ import sqlite3
 from sqlite3 import Error
 from flask_wtf import FlaskForm
 from init_db import add_text
-from login import *
 
 from flask_login import (
     UserMixin,
