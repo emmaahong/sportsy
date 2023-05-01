@@ -1,8 +1,11 @@
-DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS login;
 
-CREATE TABLE [IF NOT EXISTS] schema.users (
-    usernumber INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    passcode TEXT NOT NULL
+create table login(
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email text not null,
+    passcode text not null
 );
 
+-- insert into login values(
+--     'xyz@gmail.com','XYZ123abc'
+-- );

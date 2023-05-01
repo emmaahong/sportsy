@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<h1>signup</h1>
+<h2>sign up today to become a member of the sportsy community.</h2>
+<h5>*optional entries</h2>
+<div>
+    <label>name: </label>
+    <input autocomplete = "on"></input>
+</div>
+<div>
+    <label>phone number: </label>
+    <input autocomplete = "on"></input>
+</div>
+<div>
+    <label>email: </label>
+    <input autocomplete = "on"></input>
+</div>
+<div>
+    <label>dominant side: </label>
+    <button>right</button>
+    <button>left</button>
+</div>
+<div>
+    <label>date of birth: </label>
+    <input placeholder = "DD/MM/YY" autocomplete = "on"></input>
+</div>
+<div>
+    <label>*height: </label>
+    <input placeholder = "m / cm"></input>
+</div>
+<div>
+    <label>*weight: </label>
+    <input placeholder = "kg"></input>
+</div>
+<div>
+    <label>health information: </label>
+    <input list = "health"></input>
+    <datalist id = "health">
+        <option value="Asthma">
+        <option value="Chronic pain">
+        <option value="Dental appliance">
+        <option value="Medical Alert Bracelet">
+        <option value="Diabetes">
+        <option value="Allergies">
+        <option value="Epileptic">
+        <option value="Fainting during exercise">
+        <option value="Wears contact lenses">
+        <option value="Wears glasses">
+        <option value="Heart condition">
+        <option value="Hearing problem">
+    </datalist>
+</div>
+
+
+{% endblock %}
