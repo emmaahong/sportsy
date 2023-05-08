@@ -5,56 +5,143 @@
 {% endblock %}
 
 {% block body %}
-<h1>signup</h1>
-<h2>sign up today to become a member of the sportsy community.</h2>
-<h5>*optional entries</h2>
-<div>
-    <label>name: </label>
-    <input autocomplete = "on"></input>
-</div>
-<div>
-    <label>phone number: </label>
-    <input autocomplete = "on"></input>
-</div>
-<div>
-    <label>email: </label>
-    <input autocomplete = "on"></input>
-</div>
-<div>
-    <label>dominant side: </label>
-    <button>right</button>
-    <button>left</button>
-</div>
-<div>
-    <label>date of birth: </label>
-    <input placeholder = "DD/MM/YY" autocomplete = "on"></input>
-</div>
-<div>
-    <label>*height: </label>
-    <input placeholder = "m / cm"></input>
-</div>
-<div>
-    <label>*weight: </label>
-    <input placeholder = "kg"></input>
-</div>
-<div>
-    <label>health information: </label>
-    <input list = "health"></input>
-    <datalist id = "health">
-        <option value="Asthma">
-        <option value="Chronic pain">
-        <option value="Dental appliance">
-        <option value="Medical Alert Bracelet">
-        <option value="Diabetes">
-        <option value="Allergies">
-        <option value="Epileptic">
-        <option value="Fainting during exercise">
-        <option value="Wears contact lenses">
-        <option value="Wears glasses">
-        <option value="Heart condition">
-        <option value="Hearing problem">
-    </datalist>
-</div>
+<form id="signup-form">
 
+    <label for="inputName">your name</label>
+    <div class="form-row" id="inputName">
+        <div class="col">
+          <input type="text" class="form-control" id = "inputFN" placeholder="first name">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" id = "inputFN" placeholder="last name">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="inputEmail">your email</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="enter your email...">
+        <small id="emailHelp" class="form-text text-muted">your data is not shared anywhere else.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="inputPassword">password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="enter your password...">
+    </div>
+
+    <div class="form-group">
+        <label for="inputPB">your personal bests</label>
+        <textarea class="form-control" id="inputPB" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+        
+        <div class="row">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseHealth" aria-expanded="false" aria-controls="collapseHealth">
+                health information
+            </button>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="noHealth" value="noHealth">
+                <label class="form-check-label" for="noHealth">nothing to report!</label>
+            </div>
+        </div>
+
+        <div  id="collapseHealth" class="collapse">
+            <div class="card card-body">
+                <div class="row healthform-checks">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="asthma" value="asthma">
+                        <label class="form-check-label" for="asthma">asthma</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="diabetes" value="diabetes">
+                        <label class="form-check-label" for="diabetes">diabetes</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="concussions" value="concussions">
+                        <label class="form-check-label" for="concussions">previous history of concussions</label>
+                    </div>
+
+                </div>
+
+                <div class="row healthform-checks">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="fainting" value="fainting">
+                        <label class="form-check-label" for="fainting">fainting episodes during exercise</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="troublebreathing" value="troublebreathing">
+                        <label class="form-check-label" for="troublebreathing">trouble breathing during exercise</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="glasses" value="glasses">
+                        <label class="form-check-label" for="glasses">glasses</label>
+                    </div> 
+                </div>
+
+                <div class = "row healthform-checks">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="shatterproof" value="shatterproof">
+                        <label class="form-check-label" for="shatterproof">shatterproof lenses?</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="dental" value="dental">
+                        <label class="form-check-label" for="dental">dental appliance</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="hearing" value="hearing">
+                        <label class="form-check-label" for="dental">hearing problem</label>
+                    </div>
+                </div>
+
+                <div class = "row healthform-checks">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="heartcondition" value="heartcondition">
+                        <label class="form-check-label" for="heartcondition">heart condition</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="medication" value="medication">
+                        <label class="form-check-label" for="dental">has been on medication in past year</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="allergies" value="allergies">
+                        <label class="form-check-label" for="allergies">allergies</label>
+                    </div>
+                </div>
+
+                <div class = "row healthform-checks">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="medicalert" value="medicalert">
+                        <label class="form-check-label" for="medicalert">wears a medic alert bracelet/necklace</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="injuryillness" value="injuryillness">
+                        <label class="form-check-label" for="dental">has had illness/injury in past year</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="presentinjury" value="presentinjury">
+                        <label class="form-check-label" for="presentinjury">presently injured</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
 {% endblock %}
