@@ -15,10 +15,6 @@ def add_text(text_value):
     connection.commit()
     return 1
 
-cursor2.execute(
-    "INSERT INTO login (email, passcode) VALUES (?, ?)",
-    ('Emma','Hello')
-)
 connection2.commit()
 connection2.close()
 connection.close()

@@ -2,7 +2,10 @@
 html {
   height:100%;
   width: 100%;
-  background-repeat: repeat;
+  min-height:100%;
+  min-width: 100%;
+  background-repeat: repeat-y;
+  line-height:80%;
 }
 
 .nav-logo{
@@ -10,12 +13,36 @@ html {
   width: 100px;
 }
 
+nav{
+  background-color:rgba(255, 255, 255, 0.5)!important;
+}
+
+nav a{
+  color:rgb(4, 48, 27);
+}
+
+nav a:hover{
+  color:rgb(41, 126, 85);
+}
+
 body{
   font-family: 'Montserrat' , sans-serif !important;
-  height:100%;
+  height: 100%;
   width: 100%;
-  background-image: linear-gradient(to right, rgba(85, 216, 154) , rgba(4, 48, 27,0.8));
+  min-height:100%;
+  min-width: 100%;
+  /* background-image: linear-gradient(to right, rgba(85, 216, 154) , rgba(4, 48, 27,0.8)); */
+  /* background-attachment: fixed; */
+  /* background-image: -webkit-gradient(linear, left top, left bottom, (rgba(85, 216, 154)), to(rgba(4, 48, 27,0.8))) fixed; */
+  background: url("/static/img/sportsy_bg.png");
+  background-size: 100% 100%;
   background-repeat: round;
+}
+
+button{
+  background-color: #E9E7EB !important;
+  border: 2px solid #04301B !important;
+  color: #04301B !important;
 }
 
 /* --------------------------------- ROSTER --------------------------------- */
@@ -30,7 +57,7 @@ body{
 
 #signup-form input{
   border: none;
-  border-bottom: 2px black solid;
+  border-bottom: 2px #04301B solid;
   background-color: transparent;
 }
 
@@ -38,7 +65,63 @@ body{
   color: rgba(41, 41, 41, 0.819);
 }
 
-.healthform-checks{
+.login-box{
+  width: 80%;
+  margin: 5%;
+  padding: 4%;
+  /* background-color: #E9E7EB; */
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8%;
+}
+
+#signup{
+  min-width: 100%;
+  min-height:100%;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+#signup textarea{
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.card{
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.form-group{
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+/* ---------------------------------- player or coach --------------------------------- */
+
+#player-coach-page{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgba(255, 160, 122, 0.65); */
+}
+
+#player-coach-box{
+  height: 100%;
+  width: 60%;
+  margin: 5%;
+  padding: 4%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 8%;
+}
+
+#player-coach-box h3{
+  text-align: center;
+  color:rgb(4, 48, 27);
+}
+
+#player-coach-opts{
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  width: 100%;
 }
