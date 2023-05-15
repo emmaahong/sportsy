@@ -13,15 +13,25 @@ if WIN:
     prefix = 'sqlite:///'
 else:
     prefix = 'sqlite:////'
-    
+
+conn = sqlite3.connect('database_name.db')
+c = conn.cursor()
+c.execute('SELECT * FROM users')
+rows = c.fetchall()
+for row in rows:
+    print(row)
+conn.close()
+
 # app initialization
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ics4u'
-app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # database initialization
-db=SQLAlchemy(app)
+# db=SQLAlchemy(app)
+conn=sqlite3.connect('database.db')
+cursor = conn.cursor()
 login_manager = LoginManager(app)
 
 @login_manager.user_loader
