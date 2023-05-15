@@ -1,17 +1,17 @@
-from flask import Flask, render_template, url_for, request, flash, redirect
+from flask import Flask, render_template, url_for, request, flash, redirect, jsonify
 import sqlite3
 from sqlite3 import Error
-from flask_wtf import FlaskForm
+# from flask_wtf import FlaskForm
 from init_db import add_text
 
-from flask_login import (
-    UserMixin,
-    login_user,
-    LoginManager,
-    current_user,
-    logout_user,
-    login_required,
-)
+# from flask_login import (
+#     UserMixin,
+#     login_user,
+#     LoginManager,
+#     current_user,
+#     logout_user,
+#     login_required,
+# )
 
 # app initialization
 app = Flask(__name__)
@@ -55,6 +55,26 @@ def profile():
 def calendar():
     return render_template('calendar.html')
 
+conn = None
+cursor = None
+
+@app.route('/calendar-events')
+def calendar_events():
+
+	try:
+		conn = sqlite3.connect()
+		cursor = conn.cursor(sqlite3.cursors.DictCursor)
+		cursor.execute("SELECT id, title, url, class, UNIX_TIMESTAMP(start_date)*1000 as start, UNIX_TIMESTAMP(end_date)*1000 as end FROM event")
+		rows = cursor.fetchall()
+		resp = jsonify({'success' : 1, 'result' : rows})
+		resp.status_code = 200
+		return resp
+	except Exception as e:
+		print(e)
+	finally:
+		cursor.close() 
+		conn.close()
+
 @app.route('/roster')
 def roster():
     return render_template('roster.html', rostername = "yo name")
@@ -66,7 +86,7 @@ def addText():
         text_value = request.form["textv"]
         #saving to database
         add_new = add_text(text_value)
-        return redirect(url_for('yo name'))
+        return redirect(url_for('name'))
     else:
         return render_template('index.html')
     
