@@ -1,8 +1,7 @@
 /* --------------------------------- GENERAL -------------------------------- */
-html{
+html {
   height:100%;
   width: 100%;
-  font-family: sans-serif;
   background-repeat: repeat;
 }
 
@@ -12,6 +11,7 @@ html{
 }
 
 body{
+  font-family: 'Montserrat' , sans-serif !important;
   height:100%;
   width: 100%;
   background-image: linear-gradient(to right, rgba(85, 216, 154) , rgba(4, 48, 27,0.8));
@@ -27,42 +27,18 @@ body{
 
 
 /* ---------------------------------- LOGIN --------------------------------- */
-#login-content{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height:100%;
-  width: 100%;  
-}
 
-#login-box{
-  background-color: rgba(233, 231, 235, 0.6);
-  width: 50%;
-  text-align: center;
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
-}
-
-#login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3%;
-}
-
-#username{
+#signup-form input{
   border: none;
   border-bottom: 2px black solid;
   background-color: transparent;
 }
 
-#password{
-  border: none;
-  border-bottom: 2px black solid;
-  background-color: transparent;
+#signup-form ::placeholder {
+  color: rgba(41, 41, 41, 0.819);
+}
+
+.healthform-checks{
+  display: flex;
+  justify-content: center;
 }
