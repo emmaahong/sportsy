@@ -7,19 +7,7 @@
 
 {% block body %}
 <h1>home</h1>
-    {% for name in names %}
-        <p class = "home-p">{{ name['message'] }}, {{ name['firstname']}}</p>
-    {%endfor%}
-    <form action={{ url_for("index") }} method = "post">
-        <label>First Name: </label>
-        <input name="firstname" id = "firstname" type = "text" placeholder="Enter Firstname...">
-    </form>
 
-    {% for user in users %}
-        <div class='users'>
-            <p>{{ user[] }}</p>
-        </div>
-    {%endfor%}
 
 
 {% endblock %}
