@@ -6,6 +6,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, DateField, TextAreaField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo
 # from init_db import add_text
 import sys
 import os
@@ -26,20 +28,22 @@ name_message = { 'message' : 'Welcome to Sportsy',
 names = [name_message]
 
 # app initialization
+# SQLite URI compatible
+WIN = sys.platform.startswith('win')
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
+
+# app initialization
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ics4u'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-# Set the absolute path of the database file
-base_dir = os.path.abspath(os.path.dirname(__file__))
-db_path = os.path.join(base_dir, 'database.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 # conn=sqlite3.connect('database.db')
 # cursor = conn.cursor()
+db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
 class User(db.Model, UserMixin):
@@ -145,18 +149,34 @@ def login():
         return 'Invalid username or password'
     return render_template('login.html')
 
-@app.route('/signup')
+# Define the form class for the signup form
+class SignupForm(FlaskForm):
+    fname = StringField('first name', validators=[DataRequired()])
+    lname = StringField('last name', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(), Email()])
+    password = PasswordField('password', validators=[DataRequired()])
+    confirm_password = PasswordField('confirm Password', validators=[DataRequired(), EqualTo('password')])
+    dob = DateField('date of birth', validators=[DataRequired()])
+    pb = TextAreaField('personal bests')
+    healthinfo = TextAreaField('health information')
+    right = BooleanField('right')
+    left = BooleanField('left')
+    submit = SubmitField('sign up')
+
+
+@app.route('/signup', methods=["GET", "POST"])
 def signup():
-    if request.method=="POST":
-        fname=request.form['fname']
-        lname=request.form['lname']
-        email=request.form['email']
-        password=request.form['password']
-        dob=request.form['dob']
-        pb=request.form['pb']
-        healthinfo=request.form['healthinfo']
-        right=request.form['right']
-        left=request.form['left']
+    form = SignupForm()
+    if request.method=="POST" and form.validate_on_submit():
+        fname=form.fname.data
+        lname=request.form.get('lname')
+        email=request.form.get('email')
+        password=request.form.get('password')
+        dob=request.form.get('dob')
+        pb=request.form.get('pb')
+        healthinfo=request.form.get('healthinfo')
+        right=request.form.get('right')
+        left=request.form.get('left')
         
         if right=='on':
             dom_side = 'right'
@@ -171,7 +191,7 @@ def signup():
         db.session.commit()
         
         return redirect(url_for('login'))
-    return render_template('signup.html')
+    return render_template('signup.html', form=form)
 
 @app.route('/log')
 def log():
@@ -188,6 +208,10 @@ def coach_signup():
 @app.route('/playersignup')
 def player_signup():
     return render_template('player_signup.html')
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    return 'An error occurred: ' + str(e), 500
     
 if __name__ == "__main__":
     db.create_all()

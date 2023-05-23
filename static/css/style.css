@@ -1,17 +1,32 @@
 /* --------------------------------- GENERAL -------------------------------- */
 html {
-  height:100%;
-  width: 100%;
-  min-height:100%;
-  min-width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif !important;
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(
+    217deg,
+    rgba(0, 255, 135, 0.8),
+    rgba(255, 0, 0, 0) 70.71%
+  ), linear-gradient(127deg, rgba(85, 216, 155, 0.916), rgba(0, 255, 135, 0.65) 70.71%),
+  linear-gradient(336deg, rgba(85, 216, 155, 0.916), rgba(4, 48, 27, 0.43) 70.71%);
+  background-size: 100% 100%, cover;
   background-repeat: repeat-y;
-  line-height:80%;
 }
 
 .nav-logo{
-  height: 30px;
-  width: 100px;
+  height: 60px;
+  width: 105px;
+  transition: transform .2s; /* Animation */
 }
+
+.nav-logo:hover {
+  transform: scale(1.1);
+}
+
 
 nav{
   background-color:rgba(255, 255, 255, 0.5)!important;
@@ -23,20 +38,6 @@ nav a{
 
 nav a:hover{
   color:rgb(41, 126, 85);
-}
-
-body{
-  font-family: 'Montserrat' , sans-serif !important;
-  height: 100%;
-  width: 100%;
-  min-height:100%;
-  min-width: 100%;
-  /* background-image: linear-gradient(to right, rgba(85, 216, 154) , rgba(4, 48, 27,0.8)); */
-  /* background-attachment: fixed; */
-  /* background-image: -webkit-gradient(linear, left top, left bottom, (rgba(85, 216, 154)), to(rgba(4, 48, 27,0.8))) fixed; */
-  background: url("/static/img/sportsy_bg.png");
-  background-size: 100% 100%;
-  background-repeat: round;
 }
 
 button{
@@ -94,6 +95,8 @@ button{
   padding-top: 1%;
   padding-bottom: 1%;
 }
+
+signup
 
 /* ---------------------------------- player or coach --------------------------------- */
 

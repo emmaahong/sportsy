@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block head %}
@@ -7,67 +8,51 @@
 {% block body %}
 
 <div class="container-fluid" id="signup">
-    <form class = "login-box" id="signup-form">
+    <form method="POST" class="login-box" id="signup-form" action="{{ url_for('signup') }}">
+        {{ form.hidden_tag() }}
+        
         <h3>sign up for sportsy</h3>
-        <label for="inputName">your name</label>
-
+        
         <div class="form-group">
-            <div class="form-row" id="inputName">
-                <div class="col">
-                  <input type="text" name="fname" class="form-control" id = "inputFN" placeholder="first name">
-                </div>
-                <div class="col">
-                  <input type="text" name="lname" class="form-control" id = "inputFN" placeholder="last name">
-                </div>
-            </div>
+            <label for="inputFN">your first name</label>
+            {{ form.fname(class="form-control", placeholder="enter your first name...", id="inputFN") }}
         </div>
-    
+        
+        <div class="form-group">
+            <label for="inputLN">your last name</label>
+            {{ form.lname(class="form-control", placeholder="enter your last name...", id="inputLN") }}
+        </div>
+        
         <div class="form-group">
             <label for="inputEmail">your email</label>
-            <input type="email" name="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="enter your email...">
-            <small id="emailHelp" class="form-text text-muted">your data is not shared anywhere else.</small>
+            {{ form.email(class="form-control", placeholder="enter your email...", id="inputEmail") }}
+            <small class="form-text text-muted">your data is not shared anywhere else.</small>
         </div>
-
-        <div class="form-group">
-            <label for="dob">your date of birth</label>
-            <input type="date" id="dob" name="dob">
-        </div>
-    
+        
         <div class="form-group">
             <label for="inputPassword">password</label>
-            <input name='password' type="password" class="form-control" id="inputPassword" placeholder="enter your password...">
+            {{ form.password(class="form-control", placeholder="enter your password...", id="inputPassword") }}
+        </div>
+
+        <div class="form-group">
+            <label for="healthinfo">health info</label>
+            {{ form.healthinfo(class="form-control", placeholder="enter your password...", id="healthinfo") }}
+        </div>
+
+        <div class="form-group">
+            <label for="dob">date of birth</label>
+            {{ form.dob(class="form-control", placeholder="enter your password...", id="dob") }}
+        </div>
+
+        <div class="form-group">
+            <label for="pb">personal bests</label>
+            {{ form.pb(class="form-control", placeholder="enter your password...", id="pb") }}
         </div>
     
+        
         <div class="form-group">
-            <label for="inputPB">your personal bests</label>
-            <textarea class="form-control" id="inputPB" rows="3"></textarea>
+            {{ form.submit(class="btn btn-primary", value="sign up") }}
         </div>
-
-        <div class="form-group">
-            <label for="inputHealth">your health information</label>
-            <textarea name="healthinfo" class="form-control" id="inputHealth" rows="3"></textarea>
-        </div>
-
-        <label for="dominantSide">your dominant side</label>
-        <div class="row" id="dominantSide">
-            <div class = "col">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" name = "left" type="checkbox" id="leftSide" value="leftSide">
-                    <label class="form-check-label" for="leftSide">left</label>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" name = "right" type="checkbox" id="rightSide" value="rightSide">
-                    <label class="form-check-label" for="rightSide">right</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">sign up</button>
-        </div> 
     </form>
 </div>
 
