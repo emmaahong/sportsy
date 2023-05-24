@@ -6,10 +6,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, DateField, TextAreaField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo
 # from init_db import add_text
 import sys
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+from form import *
 
 # conn = sqlite3.connect('database_name.db')
 # c = conn.cursor()
@@ -26,20 +29,22 @@ name_message = { 'message' : 'Welcome to Sportsy',
 names = [name_message]
 
 # app initialization
+# SQLite URI compatible
+WIN = sys.platform.startswith('win')
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
+
+# app initialization
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ics4u'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-# Set the absolute path of the database file
-base_dir = os.path.abspath(os.path.dirname(__file__))
-db_path = os.path.join(base_dir, 'database.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 # conn=sqlite3.connect('database.db')
 # cursor = conn.cursor()
+db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
 class User(db.Model, UserMixin):
@@ -54,15 +59,13 @@ class User(db.Model, UserMixin):
     pb = db.Column(db.String(20))
     healthinfo=db.Column(db.String(20))
     dom_side = db.Column(db.String(5))
-    
-    
-    
+     
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
         
     def set_password(self, password):
-        self.password_hash = generate_password_hash(self.password_hash)
+        self.password_hash = generate_password_hash(password)
     
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password) 
@@ -129,40 +132,40 @@ def addText():
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
-    # form = LoginForm()
-    # if form.validate_on_submit():
-    #     login_user(user) 
-    if request.method =="POST":
-        email = request.form["email"]
-        password = request.form["password"]
-        
-        user = User.query.filter_by(email=email).first()
-        
-        if user and user.check_password(password):
-            login_user(user)
-            return redirect('/')
-        
-        return 'Invalid username or password'
-    return render_template('login.html')
+    form = LoginForm()
 
-@app.route('/signup')
-def signup():
-    if request.method=="POST":
-        fname=request.form['fname']
-        lname=request.form['lname']
-        email=request.form['email']
-        password=request.form['password']
-        dob=request.form['dob']
-        pb=request.form['pb']
-        healthinfo=request.form['healthinfo']
-        right=request.form['right']
-        left=request.form['left']
+    if request.method =="POST":
+        email=form.login_email.data
+        password=form.login_password.data
         
-        if right=='on':
+        user = User(email=email, password=password)
+        login_user(user)
+        return redirect(url_for('profile'))
+    return render_template('login.html')
+        
+
+@app.route('/signup', methods=["GET", "POST"])
+def signup():
+    form = SignupForm()
+    if request.method=="POST" and form.validate_on_submit():
+        fname=form.fname.data
+        lname=form.lname.data
+        email=form.email.data
+        password=form.password.data
+        confirm_password = form.confirm_password.data
+        dob=form.dob.data
+        pb=form.pb.data
+        healthinfo=form.healthinfo.data
+        right=form.right.data
+        left=form.left.data
+        dom_side=' '
+        
+        if right:
             dom_side = 'right'
-        elif left=='on':
+        elif left:
             dom_side='left'     
         
+        print(dom_side)
         
         user = User(fname=fname, lname=lname, email=email, dob=dob,pb=pb, healthinfo=healthinfo, dom_side=dom_side)
         user.set_password(password)
@@ -170,8 +173,8 @@ def signup():
         db.session.add(user)
         db.session.commit()
         
-        return redirect(url_for('login'))
-    return render_template('signup.html')
+        return redirect(url_for('index'))
+    return render_template('signup.html', form=form)
 
 @app.route('/log')
 def log():
@@ -188,6 +191,10 @@ def coach_signup():
 @app.route('/playersignup')
 def player_signup():
     return render_template('player_signup.html')
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    return 'An error occurred: ' + str(e), 500
     
 if __name__ == "__main__":
     db.create_all()
