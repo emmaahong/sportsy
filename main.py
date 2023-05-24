@@ -4,6 +4,8 @@ from sqlite3 import Error
 # from flask_wtf import FlaskForm
 from init_db import add_text
 
+# import calendar 
+
 # from flask_login import (
 #     UserMixin,
 #     login_user,
@@ -53,31 +55,14 @@ def profile():
   
 @app.route('/calendar')
 def calendar():
+    
+    # text_cal = calendar.HTMLCalendar(firstweekday = 0)
+    # print(text_cal.formatmonth(2018, 9))
     return render_template('calendar.html')
-
-conn = None
-cursor = None
-
-@app.route('/calendar-events')
-def calendar_events():
-
-	try:
-		conn = sqlite3.connect()
-		cursor = conn.cursor(sqlite3.cursors.DictCursor)
-		cursor.execute("SELECT id, title, url, class, UNIX_TIMESTAMP(start_date)*1000 as start, UNIX_TIMESTAMP(end_date)*1000 as end FROM event")
-		rows = cursor.fetchall()
-		resp = jsonify({'success' : 1, 'result' : rows})
-		resp.status_code = 200
-		return resp
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
 
 @app.route('/roster')
 def roster():
-    return render_template('roster.html', rostername = "yo name")
+    return render_template('roster.html', rostername = "name")
 
 #adding textbox to roster
 @app.route("/add_text", methods=["POST","GET"])
