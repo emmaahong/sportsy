@@ -12,6 +12,7 @@ from wtforms.validators import DataRequired, Email, EqualTo
 import sys
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+from form import *
 
 # conn = sqlite3.connect('database_name.db')
 # c = conn.cursor()
@@ -58,15 +59,13 @@ class User(db.Model, UserMixin):
     pb = db.Column(db.String(20))
     healthinfo=db.Column(db.String(20))
     dom_side = db.Column(db.String(5))
-    
-    
-    
+     
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
         
     def set_password(self, password):
-        self.password_hash = generate_password_hash(self.password_hash)
+        self.password_hash = generate_password_hash(password)
     
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password) 
@@ -133,56 +132,40 @@ def addText():
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
-    # form = LoginForm()
-    # if form.validate_on_submit():
-    #     login_user(user) 
+    form = LoginForm()
+
     if request.method =="POST":
-        email = request.form["email"]
-        password = request.form["password"]
+        email=form.login_email.data
+        password=form.login_password.data
         
-        user = User.query.filter_by(email=email).first()
-        
-        if user and user.check_password(password):
-            login_user(user)
-            return redirect('/')
-        
-        return 'Invalid username or password'
+        user = User(email=email, password=password)
+        login_user(user)
+        return redirect(url_for('profile'))
     return render_template('login.html')
-
-# Define the form class for the signup form
-class SignupForm(FlaskForm):
-    fname = StringField('first name', validators=[DataRequired()])
-    lname = StringField('last name', validators=[DataRequired()])
-    email = StringField('email', validators=[DataRequired(), Email()])
-    password = PasswordField('password', validators=[DataRequired()])
-    confirm_password = PasswordField('confirm Password', validators=[DataRequired(), EqualTo('password')])
-    dob = DateField('date of birth', validators=[DataRequired()])
-    pb = TextAreaField('personal bests')
-    healthinfo = TextAreaField('health information')
-    right = BooleanField('right')
-    left = BooleanField('left')
-    submit = SubmitField('sign up')
-
+        
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     form = SignupForm()
     if request.method=="POST" and form.validate_on_submit():
         fname=form.fname.data
-        lname=request.form.get('lname')
-        email=request.form.get('email')
-        password=request.form.get('password')
-        dob=request.form.get('dob')
-        pb=request.form.get('pb')
-        healthinfo=request.form.get('healthinfo')
-        right=request.form.get('right')
-        left=request.form.get('left')
+        lname=form.lname.data
+        email=form.email.data
+        password=form.password.data
+        confirm_password = form.confirm_password.data
+        dob=form.dob.data
+        pb=form.pb.data
+        healthinfo=form.healthinfo.data
+        right=form.right.data
+        left=form.left.data
+        dom_side=' '
         
-        if right=='on':
+        if right:
             dom_side = 'right'
-        elif left=='on':
+        elif left:
             dom_side='left'     
         
+        print(dom_side)
         
         user = User(fname=fname, lname=lname, email=email, dob=dob,pb=pb, healthinfo=healthinfo, dom_side=dom_side)
         user.set_password(password)
@@ -190,7 +173,7 @@ def signup():
         db.session.add(user)
         db.session.commit()
         
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     return render_template('signup.html', form=form)
 
 @app.route('/log')

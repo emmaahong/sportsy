@@ -11,8 +11,8 @@ body {
     217deg,
     rgba(0, 255, 135, 0.8),
     rgba(255, 0, 0, 0) 70.71%
-  ), linear-gradient(127deg, rgba(85, 216, 155, 0.916), rgba(0, 255, 135, 0.65) 70.71%),
-  linear-gradient(336deg, rgba(85, 216, 155, 0.916), rgba(4, 48, 27, 0.43) 70.71%);
+  ), linear-gradient(127deg, rgba(32, 238, 142, 0.616), rgba(0, 255, 135, 0.65) 70.71%),
+  linear-gradient(336deg, rgba(85, 216, 155, 0.616), rgba(4, 48, 27, 0.73) 70.71%);
   background-size: 100% 100%, cover;
   background-repeat: repeat-y;
 }
@@ -44,6 +44,54 @@ button{
   background-color: #E9E7EB !important;
   border: 2px solid #04301B !important;
   color: #04301B !important;
+}
+
+/* --------------------------------- HOME --------------------------------- */
+.home-page{
+  padding: 25%;
+  padding-top: 15%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-title
+{
+  text-align: center;
+  background-image: linear-gradient(
+    -225deg,
+    rgb(4, 48, 27) 0%,
+    #2d0d41 29%,
+    #4f3378 67%,
+    #1a7c47 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+  display: inline-block;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+#home-box{
+  height: 50% !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.intro{
+  height: 50%;
+  margin: 20%;
 }
 
 /* --------------------------------- ROSTER --------------------------------- */
@@ -91,6 +139,14 @@ button{
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
+#right{
+  display: inline;
+}
+
+#left{
+  display: inline;
+}
+
 .form-group{
   padding-top: 1%;
   padding-bottom: 1%;
@@ -127,4 +183,17 @@ signup
   justify-content: center;
   height: 80%;
   width: 100%;
+}
+
+#submit-btn{
+  border: none !important;
+  background-color:rgba(255, 255, 255, 0.5)!important;
+  width: 100%;
+  height: 15%;
+  color: rgb(4, 48, 27);
+  transition: transform .2s;
+}
+
+#submit-btn:hover{
+  transform: scale(1.07);
 }

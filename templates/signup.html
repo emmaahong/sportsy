@@ -30,28 +30,42 @@
         </div>
         
         <div class="form-group">
-            <label for="inputPassword">password</label>
+            <label for="inputPassword">your password</label>
             {{ form.password(class="form-control", placeholder="enter your password...", id="inputPassword") }}
         </div>
-
+        
         <div class="form-group">
-            <label for="healthinfo">health info</label>
-            {{ form.healthinfo(class="form-control", placeholder="enter your password...", id="healthinfo") }}
+            <label for="confirmPassword">confirm your password</label>
+            {{ form.confirm_password(class="form-control", placeholder="enter your password again...", id="confirmPassword") }}
         </div>
 
         <div class="form-group">
-            <label for="dob">date of birth</label>
+            <label for="healthinfo">your relevant health information</label>
+            {{ form.healthinfo(class="form-control", placeholder="enter your health information...", id="healthinfo") }}
+        </div>
+
+        <div class="form-group">
+            <label for="dob">your date of birth</label>
             {{ form.dob(class="form-control", placeholder="enter your password...", id="dob") }}
         </div>
 
         <div class="form-group">
-            <label for="pb">personal bests</label>
+            <label for="pb">your personal bests</label>
             {{ form.pb(class="form-control", placeholder="enter your password...", id="pb") }}
         </div>
     
-        
         <div class="form-group">
-            {{ form.submit(class="btn btn-primary", value="sign up") }}
+            <label for="dom">your dominant side</label>
+
+            <div name="dom">
+                {{ form.right(class="form-control", id="right") }}
+                {{ form.left(class="form-control", id="left") }}
+            </div>
+            
+        </div>
+    
+        <div class="form-group">
+            {{ form.submit(id="submit-btn", class="btn btn-primary", value="sign up") }}
         </div>
     </form>
 </div>
