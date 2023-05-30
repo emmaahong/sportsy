@@ -4,23 +4,23 @@
 
 {% endblock %}
 
-{% block body %}
+{% block body%}
 <div class="container-fluid" id="login">
-    <form class="login-box" id="login-form">
+    <form class="login-box" id="login-form" action="{{ url_for('login') }}">
 
         {{ form.hidden_tag() }}
 
         <h3>login to sportsy</h3>
     
         <div class="form-group">
-            <label for="inputEmail">your email</label>
-            {{ form.login_email(class="form-control", placeholder="enter your email...", id="inputEmail") }}
+            <label for="inputLoginEmail">your email</label>
+            {{ form.login_email(class="form-control", placeholder="enter your email...", id="inputLoginEmail") }}
             <small class="form-text text-muted">your data is not shared anywhere else.</small>
         </div>
         
         <div class="form-group">
-            <label for="inputPassword">your password</label>
-            {{ form.login_password(class="form-control", placeholder="enter your password...", id="inputPassword") }}
+            <label for="inputLoginPassword">your password</label>
+            {{ form.login_password(class="form-control", placeholder="enter your password...", id="inputLoginPassword") }}
         </div>
 
         <div class="form-group">

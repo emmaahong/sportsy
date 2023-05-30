@@ -134,14 +134,21 @@ def addText():
 def login():
     form = LoginForm()
 
-    if request.method =="POST":
+    if request.method =="POST" and form.validate_on_submit():
         email=form.login_email.data
         password=form.login_password.data
+        print(email, password)
         
-        user = User(email=email, password=password)
-        login_user(user)
-        return redirect(url_for('profile'))
-    return render_template('login.html')
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.validate_password(password):
+            login_user(user)
+            print('good!')
+            return redirect(url_for('profile'))
+        print('bad!')
+        return 'Invalid password!'
+        
+    return render_template('login.html', form=form)
         
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -172,6 +179,7 @@ def signup():
         
         db.session.add(user)
         db.session.commit()
+        print('yay'+user.fname+'is logged in....')
         
         return redirect(url_for('index'))
     return render_template('signup.html', form=form)
@@ -195,7 +203,8 @@ def player_signup():
 @app.errorhandler(Exception)
 def handle_error(e):
     return 'An error occurred: ' + str(e), 500
-    
+  
 if __name__ == "__main__":
-    db.create_all()
+    with app.app_context():    
+        db.create_all()
     app.run(debug=True, port=5000)
