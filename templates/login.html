@@ -6,7 +6,9 @@
 
 {% block body%}
 <div class="container-fluid" id="login">
-    <form class="login-box" id="login-form" action="{{ url_for('login') }}">
+
+    {% if not logged_in %}
+    <form class="login-box" id="login-form" action="{{ url_for('login') }}" method = "POST">
 
         {{ form.hidden_tag() }}
 
@@ -24,8 +26,20 @@
         </div>
 
         <div class="form-group">
-            {{ form.login_submit(id="submit-btn", class="btn btn-primary", value="sign up") }}
+            {{ form.login_submit(id="login-btn", class="btn btn-primary", value="login") }}
         </div>
     </form>
+    {% else %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+
 </div>
 {% endblock %}

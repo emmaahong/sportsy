@@ -6,7 +6,7 @@ html {
 
 body {
   font-family: 'Montserrat', sans-serif !important;
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0;
   background: linear-gradient(
     217deg,
@@ -53,10 +53,22 @@ button{
   /* padding: 25%;
   padding-top: 15%; */
   height: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   border: 1px solid red;
+}
+
+/* CITE*** bootstrap template */
+.cover {
+  padding: 0 1.5rem;
+}
+.cover .btn-lg {
+  padding: .75rem 1.25rem;
+  font-weight: 700;
+}
+
+/* CITE*** bootstrap template */
+.mastfoot {
+  color: rgba(255, 255, 255, .5);
 }
 
 .home-title

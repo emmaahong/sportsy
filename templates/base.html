@@ -36,6 +36,14 @@
               <a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">login</a>
           </div>
       </nav>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
   {% block body %}{% endblock %}
 </body>
 </html>

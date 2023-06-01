@@ -80,6 +80,7 @@ def index():
     # username = conn.execute('SELECT * FROM users').fetchall()
     # conn.close()
     if request.method == "POST":
+        if flask_login.user_logged_in()
         
         irstfname = request.form.get("firstname")
         name_message['firstname'] = str(irstfname)
@@ -128,26 +129,25 @@ def addText():
         return redirect(url_for('name'))
     else:
         return render_template('index.html')
-    
 
-@app.route('/login', methods=["POST", "GET"])
+@app.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
 
-    if request.method =="POST" and form.validate_on_submit():
-        email=form.login_email.data
-        password=form.login_password.data
-        print(email, password)
-        
+
+    if request.method == "POST" and form.validate_on_submit():
+        email = form.login_email.data
+        password = form.login_password.data
+
         user = User.query.filter_by(email=email).first()
-        
+
         if user and user.validate_password(password):
             login_user(user)
-            print('good!')
+            flash('you are logged in!', 'success')
             return redirect(url_for('profile'))
-        print('bad!')
-        return 'Invalid password!'
-        
+        else:
+            flash('invalid email or password!', 'error')
+
     return render_template('login.html', form=form)
         
 
