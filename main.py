@@ -15,22 +15,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from form import *
 from datetime import date, timedelta
 
-# conn = sqlite3.connect('database_name.db')
-# c = conn.cursor()
-# c.execute('SELECT * FROM users')
-# rows = c.fetchall()
-# for row in rows:
-#     print(row)
-# conn.close()
-# welcome message
-global names
-name_message = { 'message' : 'Welcome to Sportsy',
-          'firstname' :'' }
-
-names = [name_message]
-
 # app initialization
-# SQLite URI compatible
+# SQLite URI compatible - checking if OS is Windows or Linux/MacOS to make sure prefix is right
 WIN = sys.platform.startswith('win')
 if WIN:
     prefix = 'sqlite:///'
@@ -43,11 +29,11 @@ app.config['SECRET_KEY'] = 'ics4u'
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# conn=sqlite3.connect('database.db')
-# cursor = conn.cursor()
+# initializing database
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
+# initializing User class
 class User(db.Model, UserMixin):
     
     __tablename__='users'
@@ -71,21 +57,26 @@ class User(db.Model, UserMixin):
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password) 
 
+# initializing login manager and user loader
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 @app.route('/', methods=('GET', 'POST'))
 def index():
-    # conn = get_db_connection()
-    # username = conn.execute('SELECT * FROM users').fetchall()
-    # conn.close()
+    print("in the index fnc")
+    
+    print(current_user.is_authenticated)
+    if not current_user.is_authenticated:
+        print('not authenticated...?')
+        return redirect(url_for('login'))
+    
     if request.method == "POST":
+        print("in the post if/else")
         
-        irstfname = request.form.get("firstname")
-        name_message['firstname'] = str(irstfname)
-        return render_template('index.html',  names = names)
-    return render_template('index.html',  names = names)
+        
+    return render_template('index.html')
 
 @app.route('/profile')
 def profile():
@@ -174,20 +165,32 @@ def addText():
         return redirect(url_for('name'))
     else:
         return render_template('index.html')
-    
 
-@app.route('/login', methods=["POST", "GET"])
+@app.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
 
-    if request.method =="POST":
-        email=form.login_email.data
-        password=form.login_password.data
+
+    if request.method == "POST" and form.validate_on_submit():
+        email = form.login_email.data
+        password = form.login_password.data
+
+        user = User.query.filter_by(email=email).first()
+
+        if user and user.validate_password(password):
+            login_user(user)
+            flash('you are logged in!', 'success')
+            next = request.args.get('next')
+            
+            if not url_has_allowed_host_and_scheme(next, request.host):
+                return abort(400)
+            
+            return redirect(url_for('profile'))
         
-        user = User(email=email, password=password)
-        login_user(user)
-        return redirect(url_for('profile'))
-    return render_template('login.html')
+        else:
+            flash('invalid email or password!', 'error')
+
+    return render_template('login.html', form=form)
         
 
 @app.route('/signup', methods=["GET", "POST"])
@@ -218,6 +221,7 @@ def signup():
         
         db.session.add(user)
         db.session.commit()
+        print('yay'+user.fname+'is logged in....')
         
         return redirect(url_for('index'))
     return render_template('signup.html', form=form)
@@ -241,8 +245,12 @@ def player_signup():
 @app.errorhandler(Exception)
 def handle_error(e):
     return 'An error occurred: ' + str(e), 500
-    
+  
 if __name__ == "__main__":
+<<<<<<< HEAD
     with app.app_context():
+=======
+    with app.app_context():    
+>>>>>>> 9a24a6277441c4a5ad0ca009ab7549acfbfbda51
         db.create_all()
     app.run(debug=True, port=5000)

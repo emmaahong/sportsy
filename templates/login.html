@@ -4,28 +4,42 @@
 
 {% endblock %}
 
-{% block body %}
+{% block body%}
 <div class="container-fluid" id="login">
-    <form class="login-box" id="login-form">
+
+    {% if not logged_in %}
+    <form class="login-box" id="login-form" action="{{ url_for('login') }}" method = "POST">
 
         {{ form.hidden_tag() }}
 
         <h3>login to sportsy</h3>
     
         <div class="form-group">
-            <label for="inputEmail">your email</label>
-            {{ form.login_email(class="form-control", placeholder="enter your email...", id="inputEmail") }}
+            <label for="inputLoginEmail">your email</label>
+            {{ form.login_email(class="form-control", placeholder="enter your email...", id="inputLoginEmail") }}
             <small class="form-text text-muted">your data is not shared anywhere else.</small>
         </div>
         
         <div class="form-group">
-            <label for="inputPassword">your password</label>
-            {{ form.login_password(class="form-control", placeholder="enter your password...", id="inputPassword") }}
+            <label for="inputLoginPassword">your password</label>
+            {{ form.login_password(class="form-control", placeholder="enter your password...", id="inputLoginPassword") }}
         </div>
 
         <div class="form-group">
-            {{ form.login_submit(id="submit-btn", class="btn btn-primary", value="sign up") }}
+            {{ form.login_submit(id="login-btn", class="btn btn-primary", value="login") }}
         </div>
     </form>
+    {% else %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+
 </div>
 {% endblock %}
