@@ -13,6 +13,7 @@ import sys
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from form import *
+from datetime import date, timedelta
 
 # conn = sqlite3.connect('database_name.db')
 # c = conn.cursor()
@@ -90,29 +91,74 @@ def index():
 def profile():
     return render_template('profile.html')
   
-@app.route('/calendar')
+@app.route('/calendar', methods = ['GET','POST'])
+#to do: add events to db, allow user to save events to list then add to database, allow user to add an event for another month) 
 def calendar():
-    return render_template('calendar.html')
+    #calendar info 
+    today = str(date.today())
+    calendar_info = today.split("-")
+    num_month = int(calendar_info[1])
+    year = calendar_info[0]
+    first_day_of_month = (date.today().replace(day=1)).weekday()
+
+    #finding number of days in the month (28,29,30, or 31)
+    if num_month == 4 or 6 or 9 or 11:
+        last_day_of_month = 30
+    elif num_month == 2:
+        if year == 2000 and year % 400 == 0:
+            last_day_of_month = 29
+        elif year % 4 == 0:
+            last_day_of_month = 29
+        else:
+            last_day_of_month = 28
+    else: 
+        last_day_of_month = 31
+
+    #creating list of days for printing calendar display 
+    days = []
+    for x in range(first_day_of_month):
+        days.append(" ")
+    for i in range(last_day_of_month):
+        days.append(i+1)
+    for y in range(35 - last_day_of_month):
+        days.append(" ")  
+        
+    #more lists for printing 
+    all_months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    all_events = ["-"]*35
+    all_events[6]= ["this is an example of an event"]
+    str_month = all_months[num_month-1]
+
+    #Textbox for adding events 
+    if request.method == 'POST':
+        user_date = request.form.get('date')
+        time = request.form.get('time')
+        place = request.form.get('place')
+        name = request.form.get('name')
+        extra_info = request.form.get('extra_info')
+
+        # Store the information in a list
+        information = [name, user_date, time, place, extra_info]
+        # print(information)
+        # Do something with the information
+        print(information)
+        list_user_date_of_event = user_date.split("-")
+        user_month_of_event = list_user_date_of_event[1]
+        print(num_month)
+        print(user_month_of_event)
+        if int(user_month_of_event) == int(num_month):
+            all_events[6] = information
+        else:
+            print("error")
+        print(all_events)
+        return render_template('success.html', information = information )
+    # return render_template('success.html', )
+
+    # return render_template('form.html')
+    return render_template('calendar.html', year = year, month = str_month, days = days, today = today, events=all_events)
 
 conn = None
 cursor = None
-
-@app.route('/calendar-events')
-def calendar_events():
-
-	try:
-		conn = sqlite3.connect()
-		cursor = conn.cursor(sqlite3.cursors.DictCursor)
-		cursor.execute("SELECT id, title, url, class, UNIX_TIMESTAMP(start_date)*1000 as start, UNIX_TIMESTAMP(end_date)*1000 as end FROM event")
-		rows = cursor.fetchall()
-		resp = jsonify({'success' : 1, 'result' : rows})
-		resp.status_code = 200
-		return resp
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
 
 @app.route('/roster')
 def roster():
@@ -197,5 +243,6 @@ def handle_error(e):
     return 'An error occurred: ' + str(e), 500
     
 if __name__ == "__main__":
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True, port=5000)

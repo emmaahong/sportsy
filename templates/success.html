@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+
+
+{% block body %}
+
+<head>
+    <title>Success</title>
+</head>
+<body>
+    <h1>Success!</h1>
+    <p>Information submitted:</p>
+    <ul>
+        {% for item in information %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+{% endblock %}
