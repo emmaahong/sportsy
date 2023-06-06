@@ -14,22 +14,8 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from form import *
 
-# conn = sqlite3.connect('database_name.db')
-# c = conn.cursor()
-# c.execute('SELECT * FROM users')
-# rows = c.fetchall()
-# for row in rows:
-#     print(row)
-# conn.close()
-# welcome message
-global names
-name_message = { 'message' : 'Welcome to Sportsy',
-          'firstname' :'' }
-
-names = [name_message]
-
 # app initialization
-# SQLite URI compatible
+# SQLite URI compatible - checking if OS is Windows or Linux/MacOS to make sure prefix is right
 WIN = sys.platform.startswith('win')
 if WIN:
     prefix = 'sqlite:///'
@@ -42,11 +28,11 @@ app.config['SECRET_KEY'] = 'ics4u'
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# conn=sqlite3.connect('database.db')
-# cursor = conn.cursor()
+# initializing database
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
+# initializing User class
 class User(db.Model, UserMixin):
     
     __tablename__='users'
@@ -70,22 +56,26 @@ class User(db.Model, UserMixin):
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password) 
 
+# initializing login manager and user loader
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 @app.route('/', methods=('GET', 'POST'))
 def index():
-    # conn = get_db_connection()
-    # username = conn.execute('SELECT * FROM users').fetchall()
-    # conn.close()
+    print("in the index fnc")
+    
+    print(current_user.is_authenticated)
+    if not current_user.is_authenticated:
+        print('not authenticated...?')
+        return redirect(url_for('login'))
+    
     if request.method == "POST":
-        if flask_login.user_logged_in()
+        print("in the post if/else")
         
-        irstfname = request.form.get("firstname")
-        name_message['firstname'] = str(irstfname)
-        return render_template('index.html',  names = names)
-    return render_template('index.html',  names = names)
+        
+    return render_template('index.html')
 
 @app.route('/profile')
 def profile():
@@ -144,7 +134,13 @@ def login():
         if user and user.validate_password(password):
             login_user(user)
             flash('you are logged in!', 'success')
+            next = request.args.get('next')
+            
+            if not url_has_allowed_host_and_scheme(next, request.host):
+                return abort(400)
+            
             return redirect(url_for('profile'))
+        
         else:
             flash('invalid email or password!', 'error')
 
