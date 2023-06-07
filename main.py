@@ -234,9 +234,11 @@ def log():
 def player_or_coach():
     return render_template('playerorcoach.html')
 
-@app.route('/coachsignup')
-def coach_signup():
-    return render_template('coach_signup.html')
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('logout.html')
 
 @app.route('/playersignup')
 def player_signup():
@@ -247,10 +249,6 @@ def handle_error(e):
     return 'An error occurred: ' + str(e), 500
   
 if __name__ == "__main__":
-<<<<<<< HEAD
     with app.app_context():
-=======
-    with app.app_context():    
->>>>>>> 9a24a6277441c4a5ad0ca009ab7549acfbfbda51
         db.create_all()
     app.run(debug=True, port=5000)

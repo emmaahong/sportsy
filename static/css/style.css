@@ -1,7 +1,8 @@
 /* --------------------------------- GENERAL -------------------------------- */
 html {
-  height: 100%;
+  height: 100vh;
   color: #04301B;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -12,30 +13,27 @@ body {
     217deg,
     rgba(0, 255, 135, 0.8),
     rgba(255, 0, 0, 0) 70.71%
-  ), linear-gradient(127deg, rgba(32, 238, 142, 0.616), rgba(0, 255, 135, 0.65) 70.71%),
-  linear-gradient(336deg, rgba(85, 216, 155, 0.616), rgba(4, 48, 27, 0.73) 70.71%);
+  ), linear-gradient(127deg, rgba(177, 255, 220, 0.616), rgba(0, 131, 70, 0.75) 70.71%),
+  linear-gradient(336deg, rgba(219, 245, 233, 0.516), rgba(4, 48, 27, 0.73) 70.71%);
   background-size: 100% 100%, cover;
   background-repeat: repeat-y;
   padding: 0%
 }
 
-.container{
-  height: 100% !important;
-}
-
 .nav-logo{
-  height: 60px;
-  width: 105px;
+  height: 30px;
+  width: 102.4px;
+  margin-right: 3%;
   transition: transform .2s; /* Animation */
 }
 
 .nav-logo:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 
 nav{
-  background-color:rgba(255, 255, 255, 0.5)!important;
+  background: transparent;
 }
 
 nav a{
@@ -53,37 +51,51 @@ button{
 }
 
 /* --------------------------------- HOME --------------------------------- */
-.home-page{
-  /* padding: 25%;
-  padding-top: 15%; */
-  height: 90%;
+.home-welcome{
+  padding: 25%;
+  padding-top: 15%;
+  height: 100%;
+  margin:0% !important;
+  flex-direction: column;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  border: 1px solid red;
 }
 
-/* CITE*** bootstrap template */
-.cover {
-  padding: 0 1.5rem;
-}
-.cover .btn-lg {
-  padding: .75rem 1.25rem;
-  font-weight: 700;
+#continue-btn{
+  width: 30%;
+  background: transparent;
+  border: none;
 }
 
-/* CITE*** bootstrap template */
-.mastfoot {
-  color: rgba(255, 255, 255, .5);
+#continue-btn:hover{
+  border-bottom: #04301B 2px solid;
+}
+
+#home-page{
+  padding: 25%;
+  padding-top: 13%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+  border: solid 5px red;
+  margin:5% !important;
+  text-align: center;
 }
 
 .home-title
 {
+  font-size: 500%;
   text-align: center;
   background-image: linear-gradient(
     -225deg,
-    rgb(4, 48, 27) 0%,
+    #1a7c47 0%,
     #2d0d41 29%,
     #4f3378 67%,
-    #1a7c47 100%
+    rgb(4, 48, 27) 100%
   );
   background-size: auto auto;
   background-clip: border-box;
@@ -103,11 +115,51 @@ button{
   }
 }
 
+.home-subtitle{
+  font-size: 300%;
+  text-align: left;
+  background-image: linear-gradient(
+    -225deg,
+    #715a7f 0%,
+    #51296a 29%,
+    #290d52 67%,
+    rgb(119, 94, 131) 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+  display: inline-block;
+}
+
 .home-intro{
   height: 50%;
   margin-bottom: 5%;
   border: 1px solid black;
   width: 60%;
+}
+
+.home-cat{
+  padding: 15%;
+  padding-top: 15%;
+  padding-bottom: 25%;
+  height: 100%;
+  margin:0% !important;
+  flex-direction: column;
+
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  text-align: center;
+}
+
+#home-cat2{
+  text-align: right;
 }
 
 /* --------------------------------- ROSTER --------------------------------- */
@@ -159,7 +211,10 @@ button{
   padding-bottom: 1%;
 }
 
-signup
+#signup-form{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 
 /* ---------------------------------- player or coach --------------------------------- */
 
@@ -217,7 +272,7 @@ signup
 }
 
 .login-box{
-  width: 80%;
+  width: 50%;
   padding: 4%;
   /* background-color: #E9E7EB; */
   background-color: rgba(255, 255, 255, 0.5);

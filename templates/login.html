@@ -13,7 +13,13 @@
         {{ form.hidden_tag() }}
 
         <h3>login to sportsy</h3>
-    
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div class="form-group">
             <label for="inputLoginEmail">your email</label>
             {{ form.login_email(class="form-control", placeholder="enter your email...", id="inputLoginEmail") }}
@@ -28,18 +34,10 @@
         <div class="form-group">
             {{ form.login_submit(id="login-btn", class="btn btn-primary", value="login") }}
         </div>
+        new to sportsy? sign up <a href="{{ url_for('signup') }}"> here.</a>
     </form>
-    {% else %}
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
     {% endif %}
+    
 
 </div>
 {% endblock %}

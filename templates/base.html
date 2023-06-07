@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block head %}{% endblock %}
 </head>
-<body class = 'base-body'>
+<body>
   <nav class="navbar sticky-top navbar-expand-sm">
           <div class="container-fluid">
               <a class="nav-logo" href="{{ url_for('index') }}">
@@ -42,13 +42,6 @@
           </div>
       </nav>
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
   {% block body %}{% endblock %}
 </body>
 </html>

@@ -5,7 +5,16 @@
 {% endblock %}
 
 {% block body %}
-<h1>profile</h1>
-<div class="container"></div>
+<h1>{{ current_user.fname }}'s Profile</h1>
+<div class="container">
+    <p>Name: {{ current_user.fname }} {{ current_user.lname }}</p>
+    <p>Email: {{ current_user.email }}</p>
+    <p>DOB: {{ current_user.dob }}</p>
+    <p>Health Information: {{ current_user.healthinfo }}</p>
+
+    <div class="form-group">
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </div>
+</div>
 
 {% endblock %}
