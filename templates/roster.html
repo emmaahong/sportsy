@@ -1,39 +1,51 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<meta charset = "utf-8">
-<meta name = "viewport" content = "width=device-width, initial-scale = 1">
-<linj rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootsrap/3.4.1/css/bootsrap.min.css">
     
 {% endblock %}
 
 {% block body %}
+<!--parent div roster-->
 <div id="roster">
 
+    <!--if the current user does not already have a team code-->
     {% if current_user.team_code == None %}
     <form id="roster-form" action="{{ url_for('roster') }}" method = "POST">
 
         {{ form.hidden_tag() }}
+        <!--title-->
         <h2 class="subtitle">join your team!</h2>
 
+        <!--input team code-->
         <div class="form-group">
             <label for="inputCode">team code</label>
             {{ form.code(class="form-control", placeholder="team code...", id="inputCode") }}
         </div>
 
+        <!--submit button-->
         <div class="form-group">
             {{ form.code_submit(id="submit", class="btn", value="submit") }}
         </div>
     </form>
     {% else %}
 
+        <!--roster div-->
         <div id="roster-roster">
+
+            <!--title-->
             <h1 class='subtitle'>roster</h1>
+
+            <!--loop through all users-->
             {% for user in users %}
+
+            <!--div for player info-->
             <div class='roster-player-info'>
+
+                <!--put each player's info onto the screen-->
                 <h3>{{ user.fname }} {{ user.lname }}</h3>
                 <h4>{{ user.coach_or_player }}</h4>
 
+                <!--if the user is a player, put on player-related info-->
                 {% if user.coach_or_player == 'player' %}
                     <p>dominant side: {{ user.dom_side }}</p>
                     <p>health information: {{ user.healthinfo }}</p>

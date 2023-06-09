@@ -34,10 +34,15 @@ pip install email-validator
 ```
 
 ## Known Bugs
-#### To see a full list of requirements, see our [requirements list](requirements.txt).
+- Can select both "coach" and "player" as user types
+- If "logout" page is reloaded, an error appears as login access is unavailable.
+- Under some circumstances, two users may not be simultaneously logged in at the same time due to lack of multi-user session support.
+- Calendar is unable to save to database
+
+## To see a full list of requirements, see our [requirements list](requirements.txt).
 
 ## Support
-#### Contact: ehong1@ocdsb.ca or ssabr
+#### Contact: ehong1@ocdsb.ca or ssabr2@ocdsb.ca
 
 ## Sources
 #### [1] "15 Gorgeous CSS Text Animation Effects [Examples]," [Online]. Available: [Online]. [Accessed: June 1, 2023].
@@ -87,10 +92,3 @@ pip install email-validator
 #### [45] "SQLite: Downloads," [Online]. Available: [Online]. [Accessed: June 1, 2023].
 #### [46] "SQLite - How can I add the sqlite3 module to Python? - Stack Overflow," [Online]. Available: [Online]. [Accessed: June 1, 2023].
 #### [47] "SQLite: HTML input type="date" Attribute," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [48] "Stack Overflow - Where Developers Learn, Share, & Build Careers," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [49] "stackoverflow.com," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [50] "sqlite - How can I add the sqlite3 module to Python? - Stack Overflow," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [51] "sqlite - How can I add the sqlite3 module to Python? - Stack Overflow," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [52] "sqlite - How can I add the sqlite3 module to Python? - Stack Overflow," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [53] "W3Schools CSS background-repeat demonstration," [Online]. Available: [Online]. [Accessed: June 1, 2023].
-#### [54] "W3Schools Tryit Editor," [Online]. Available: [Online]. [Accessed: June 1, 2023].

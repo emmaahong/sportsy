@@ -36,7 +36,7 @@ if WIN:
 else:
     prefix = 'sqlite:////'
 
-# app initialization
+# app and database path initialization [25]
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ics4u'
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'database.db')
@@ -53,7 +53,21 @@ login_manager = LoginManager(app)
 
 # initializing User database table
 class User(db.Model, UserMixin):
-    
+    """
+    User class that is the database model saving all data for users
+    Attributes:
+        id: int
+        fname:str
+        lname: str
+        email: str
+        password_hash: str
+        dob: Date
+        pb: str
+        healthinfo: str
+        dom_side: str
+        coach_or_player: str
+        team_code: int
+  """
     __tablename__='users'
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     fname=db.Column(db.String(20))
@@ -68,17 +82,48 @@ class User(db.Model, UserMixin):
     team_code = db.Column(db.Integer)
 
     def save_to_db(self):
+        """
+       saves and updates users to database session
+    Args: 
+      self: User
+    Returns: 
+      None
+      """
         db.session.add(self)
         db.session.commit()
         
     def set_password(self, password):
+        """
+        Sets a password hash for the user's inputted password
+    Args: 
+      self: User
+      password: str
+    Returns: 
+      None
+      """
         self.password_hash = generate_password_hash(password)
     
     def validate_password(self, password):
+        """
+        Validates the input password with the password in the database
+    Args: 
+      self: User
+      password: str
+    Returns: 
+      True: bool
+      False: bool
+      """
         return check_password_hash(self.password_hash, password) 
 
 # initializing log database table
 class HealthLog(db.Model):
+    """
+    HealthLog class that is the database model saving all data for logs
+    Attributes:
+        log_id: int
+        id:int
+        log: str
+  """
     __tablename__="healthlog"
     log_id=db.Column(db.Integer, primary_key=True,autoincrement=True)
     id=db.Column(db.Integer)
@@ -87,11 +132,22 @@ class HealthLog(db.Model):
 # initializing login manager and user loader
 @login_manager.user_loader
 def load_user(user_id):
+    """
+        Loads user from user ID
+    Args: 
+      user_id: int
+    Returns: 
+      User
+      """
     return User.query.get(int(user_id))
 
 @app.route('/', methods=('GET', 'POST'))
 def index():    
-
+    """
+        Returns the index page
+    Returns: 
+      Output from Jinja file
+      """
     # if the user is not logged in, redirect to the login page
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
@@ -100,7 +156,11 @@ def index():
 
 @app.route('/profile')
 def profile():
-    
+    """
+        Returns the profile page
+    Returns: 
+      Output from Jinja file
+      """
     # if the user is not logged in, redirect to the login page
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
@@ -109,7 +169,11 @@ def profile():
 @app.route('/calendar', methods = ['GET','POST'])
 #to do: add events to db, allow user to save events to list then add to database, allow user to add an event for another month) 
 def calendar():
-    
+    """
+        Returns the calendar page
+    Returns: 
+      Output from Jinja file
+      """
     # if the user is not logged in, redirect to the login page
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
@@ -179,6 +243,11 @@ def calendar():
 
 @app.route('/roster', methods = ['GET','POST'])
 def roster():
+    """
+        Returns the roster page
+    Returns: 
+      Output from Jinja file
+      """
     
     form=CodeReceiver()
     if current_user.team_code == None and current_user.coach_or_player == 'coach':
@@ -209,6 +278,13 @@ def roster():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
+    """
+        Returns the login page
+    Returns: 
+      Output from Jinja file
+      """
+      
+    # [27]
     session.pop('_flashes', None)
     form = LoginForm() 
 
@@ -233,7 +309,7 @@ def login():
             
             return redirect(url_for('profile'))
         
-        # flash invalid message
+        # flash invalid message [35]
         else:
             flash('invalid email or password!', 'error')
 
@@ -242,7 +318,11 @@ def login():
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    
+    """
+        Returns the signup page
+    Returns: 
+      Output from Jinja file
+      """
     # initialize form
     form = SignupForm()
     
@@ -295,7 +375,11 @@ def signup():
 
 @app.route('/log', methods=["GET", "POST"])
 def log():  
-    
+    """
+        Returns the log page
+    Returns: 
+      Output from Jinja file
+      """
     # initialize form and date
     form = HealthLogForm()
     now = datetime.now()
@@ -331,7 +415,11 @@ def log():
 @app.route('/logout')
 @login_required
 def logout():
-    
+    """
+        Returns the logout page
+    Returns: 
+      Output from Jinja file
+      """
     # logging out the user and clearing messages
     logout_user()
     session.pop('_flashes', None)    
@@ -340,6 +428,13 @@ def logout():
 
 @app.errorhandler(Exception)
 def handle_error(e):
+    """
+        Returns the error on an HTML page
+    Args:
+        e: HTTPException
+    Returns: 
+      str
+      """
     # returning the error to the screen
     return 'An error occurred: ' + str(e), 500
   

@@ -6,64 +6,31 @@
 
 
 {% block body %}
+<!--div for full welcome page-->
 <div class="home-welcome">
   <h1 class="home-title">welcome to sportsy.</h1>
   <p>sportsy is a team management platform that you can use for all your sports-y needs. track wellness, schedule your season, and keep up to date with teammates using this platform.</p>
   <input value="click to continue." id="continue-btn" type="button" onClick="document.getElementById('home-cat1').scrollIntoView();" />
 </div>
 
+<!--descriptions of each section-->
 <div class="home-cat" id="home-cat1">
   <h1 class="subtitle">health log</h1>
   <p>check in with yourself once in a while, and track your mental and physical wellness using the health log feature.</p>
   <input value="→" id="continue-btn" type="button" onClick="document.getElementById('home-cat2').scrollIntoView();" />
 </div>
 
+<!--descriptions of each section-->
 <div class="home-cat" id="home-cat2">
   <h1 class="subtitle">roster</h1>
   <p>find a comprehensive database featuring all your teammates in one place.</p>
   <input value="←" id="continue-btn" type="button" onClick="document.getElementById('home-cat3').scrollIntoView();" />
 </div>
 
+<!--descriptions of each section-->
 <div class="home-cat" id="home-cat3">
   <h1 class="subtitle">calendar</h1>
   <p>keep up to date with what's going on for your team.</p>
 </div>
-
-
-
-<!--<div id="home-page">
-    <div class="home-intro">
-
-      <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>a new way to plan</h1>
-            </div>
-    
-            <div class="col">
-                sportsy is a platform that prioritizes mutual communication, focusing on mental and physical health as well as open information.
-                <a href="{{ url_for('signup') }}">sign up today.</a>
-            </div>
-        </div> 
-      </div>
-    </div>
-    <div class="home-intro">
-
-      <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>a new way to plan</h1>
-            </div>
-    
-            <div class="col">
-                sportsy is a platform that prioritizes mutual communication, focusing on mental and physical health as well as open information.
-                <a href="{{ url_for('signup') }}">sign up today.</a>
-            </div>
-        </div> 
-      </div>
-    </div>
-</div>-->
-
-
 
 {% endblock %}

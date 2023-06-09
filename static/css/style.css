@@ -5,6 +5,7 @@ html {
   scroll-behavior: smooth;
 }
 
+/* see [5] */
 body {
   font-family: 'Montserrat', sans-serif !important;
   min-height: 100vh;
@@ -141,6 +142,7 @@ color:#1a7c47
   }
 }
 
+/* see [1] */
 .subtitle{
   font-size: 300%;
   text-align: left;
@@ -341,13 +343,10 @@ color:#1a7c47
   border-radius: 8%;
 }
 
-.profile-box .subtitle{
+.profile-box h2{
   font-size: 150%;
 }
 
-.profile-box a:hover{
-  color:rgb(41, 126, 85) !important;
-}
 
 /* ---------------------------------- HEALTH LOG --------------------------------- */
 #log{

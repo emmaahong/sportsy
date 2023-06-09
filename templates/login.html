@@ -5,14 +5,20 @@
 {% endblock %}
 
 {% block body%}
+
+<!--parent div for entire container-->
 <div class="container-fluid" id="login">
 
+    <!-- users to log in if not logged in-->
     {% if not logged_in %}
     <form class="login-box" id="login-form" action="{{ url_for('login') }}" method = "POST">
 
         {{ form.hidden_tag() }}
 
+        <!--title-->
         <h3>login to sportsy</h3>
+
+        <!--for any flashed messages, put onto screen-->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -20,21 +26,28 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
+
+        <!--input for email-->
         <div class="form-group">
             <label for="inputLoginEmail">your email</label>
             {{ form.login_email(class="form-control", placeholder="enter your email...", id="inputLoginEmail") }}
             <small class="form-text text-muted">your data is not shared anywhere else.</small>
         </div>
         
+        <!--input for password-->
         <div class="form-group">
             <label for="inputLoginPassword">your password</label>
             {{ form.login_password(class="form-control", placeholder="enter your password...", id="inputLoginPassword") }}
         </div>
 
+        <!--submit-->
         <div class="form-group">
             {{ form.login_submit(id="login-btn", class="btn btn-primary", value="login") }}
         </div>
+
+        <!--link to signup page-->
         new to sportsy? sign up <a href="{{ url_for('signup') }}"> here.</a>
+    
     </form>
     {% endif %}
     

@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block body %}
-
+<!--signup div-->
 <div class="container-fluid" id="signup">
     <form method="POST" class="login-box" id="signup-form" action="{{ url_for('signup') }}">
         {{ form.hidden_tag() }}
         
         <h3>sign up for sportsy</h3>
-
+        
+        <!--input if user is coach or player-->
         <div class="form-group">
             <label for="coach_or_player">are you a coach or a player?</label>
 
@@ -30,7 +31,8 @@
             </div>
             
         </div>
-        
+
+        <!--input first name, last name, email, password, date of birth, health information, personal bests, dominant side-->
         <div class="form-group">
             <label for="inputFN">your first name</label>
             {{ form.fname(class="form-control", placeholder="enter your first name...", id="inputFN") }}
@@ -95,6 +97,7 @@
             
         </div>
 
+        <!--submit button-->
         <div class="form-group">
             {{ form.submit(id="submit-btn", class="btn btn-primary", value="sign up") }}
         </div>

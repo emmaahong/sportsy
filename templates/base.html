@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" style = 'background-image: url('/static/img/sportsy_bg.png')'>
 <head>
+    <!--preamble and linking to bootstrap-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,17 +16,24 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <!--navbar container [8]-->
   <nav class="navbar sticky-top navbar-expand-sm">
           <div class="container-fluid">
+
+            <!--logo in corner of navbar-->
               <a class="nav-logo" href="{{ url_for('index') }}">
                     <img class = "nav-logo"  src="{{ url_for('static', filename='/img/logo.png') }}">
               </a>
+
+              <!--when screen is too small, navbar becomes toggleable dropdown [7]-->
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarID"
                   aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon">≡</span>
               </button>
               <div class="collapse navbar-collapse" id="navbarID">
-                  <div class="navbar-nav">
+                  
+                <!--navlinks-->
+                <div class="navbar-nav">
                       <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">home</a>
                       <a class="nav-link active" aria-current="page" href="{{ url_for('roster') }}">roster</a>
                       <a class="nav-link active" aria-current="page" href="{{ url_for('calendar') }}">calendar</a>
@@ -33,6 +41,7 @@
                       <a class="nav-link active" aria-current="page" href="{{ url_for('log') }}">health log</a>     
                   </div> 
               </div>
+            <!--depending if user is authenticated or not, profile link in right corner-->
             {% if not current_user.is_authenticated %}
                  <a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">login</a>
             {% else %}
@@ -42,6 +51,7 @@
           </div>
       </nav>
 
+    <!--set this as the template for body block-->
   {% block body %}{% endblock %}
 </body>
 </html>

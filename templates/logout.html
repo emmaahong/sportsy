@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block body %}
+<!--div for entire logout page-->
 <div id="logout">
+
+    <!--logout message with option to log back in-->
     <h1 class='subtitle'>you are logged out. see you later!</h1>
     <a id='logout-login' href="{{ url_for('login') }}">login again</a>
 </div>  

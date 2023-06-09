@@ -5,39 +5,53 @@
 {% endblock %}
 
 {% block body %}
+
+<!--parent div for profile-->
 <div id='profile'>
+
+    <!--title-->
     <h1 class="subtitle">{{ current_user.fname }}'s Profile</h1>
 
+    <!--profile content div-->
     <div class="profile-box">
+
+        <!--name-->
         <h2 class="subtitle">name</h2>
         <p>{{ current_user.fname }} {{ current_user.lname }}</p>
         
+        <!--email-->
         <h2 class="subtitle">email</h2>
         <p>{{ current_user.email }}</p>
 
+        <!--date of birth-->
         <h2 class="subtitle">date of birth</h2>
         <p>{{ current_user.dob }}</p>
 
+        <!--team code-->
         {% if current_user.coach_or_player == "coach" %}
             <h2 class="subtitle">team code</h2>
             <p>{{ current_user.team_code }}</p>
         {% endif %}
         
+        <!--if there is health info available, put it on screen-->
         {% if current_user.healthinfo is not string %}
             <h2 class="subtitle">health information</h2>
             <p>{{ current_user.healthinfo }}</p>
         {% endif %}
 
-        {% if current_user.dom is not string %}
+        <!--if there is dominant side available, put it on screen-->
+        {% if current_user.dom_side is not string %}
             <h2 class="subtitle">dominant side</h2>
-            <p>{{ current_user.dom }}</p>
+            <p>{{ current_user.dom_side }}</p>
         {% endif %}
 
+        <!--if there is personal bests available, put it on screen-->
         {% if current_user.pb is not string %}
             <h2 class="subtitle">{{ current_user.fname}}'s personal records</h2>
             <p>{{ current_user.pb }}</p>
         {% endif %}
 
+        <!--logout-->
         <div class="form-group">
             <a href="{{ url_for('logout') }}">
                 <h2 class="subtitle">logout from sportsy</h2>
