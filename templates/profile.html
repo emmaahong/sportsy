@@ -5,16 +5,44 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ current_user.fname }}'s Profile</h1>
-<div class="container">
-    <p>Name: {{ current_user.fname }} {{ current_user.lname }}</p>
-    <p>Email: {{ current_user.email }}</p>
-    <p>DOB: {{ current_user.dob }}</p>
-    <p>Health Information: {{ current_user.healthinfo }}</p>
+<div id='profile'>
+    <h1 class="subtitle">{{ current_user.fname }}'s Profile</h1>
 
-    <div class="form-group">
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    <div class="profile-box">
+        <h2 class="subtitle">name</h2>
+        <p>{{ current_user.fname }} {{ current_user.lname }}</p>
+        
+        <h2 class="subtitle">email</h2>
+        <p>{{ current_user.email }}</p>
+
+        <h2 class="subtitle">date of birth</h2>
+        <p>{{ current_user.dob }}</p>
+
+        {% if current_user.coach_or_player == "coach" %}
+            <h2 class="subtitle">team code</h2>
+            <p>{{ current_user.team_code }}</p>
+        {% endif %}
+        
+        {% if current_user.healthinfo is not string %}
+            <h2 class="subtitle">health information</h2>
+            <p>{{ current_user.healthinfo }}</p>
+        {% endif %}
+
+        {% if current_user.dom is not string %}
+            <h2 class="subtitle">dominant side</h2>
+            <p>{{ current_user.dom }}</p>
+        {% endif %}
+
+        {% if current_user.pb is not string %}
+            <h2 class="subtitle">{{ current_user.fname}}'s personal records</h2>
+            <p>{{ current_user.pb }}</p>
+        {% endif %}
+
+        <div class="form-group">
+            <a href="{{ url_for('logout') }}">
+                <h2 class="subtitle">logout from sportsy</h2>
+            </a>
+        </div>
     </div>
 </div>
-
 {% endblock %}

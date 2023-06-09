@@ -12,6 +12,24 @@
         {{ form.hidden_tag() }}
         
         <h3>sign up for sportsy</h3>
+
+        <div class="form-group">
+            <label for="coach_or_player">are you a coach or a player?</label>
+
+            <div class="bool-box" name="coach_or_player">
+                <div class="bool-opt">
+                    <label for="coach">coach</label>
+                    {{ form.coach(class="form-control", id="coach") }}
+                </div>
+
+                <div class="bool-opt">
+                    <label for="player">player</label>
+                    {{ form.player(class="form-control", id="player") }}
+                </div>
+                
+            </div>
+            
+        </div>
         
         <div class="form-group">
             <label for="inputFN">your first name</label>
@@ -40,30 +58,43 @@
         </div>
 
         <div class="form-group">
-            <label for="healthinfo">your relevant health information</label>
-            {{ form.healthinfo(class="form-control", placeholder="enter your health information...", id="healthinfo") }}
+            <label for="dob">your date of birth</label>
+            {{ form.dob(class="form-control", placeholder="enter your password...", id="dob") }}
+            <small class="form-text text-muted">**not necessary for coaches</small>
         </div>
 
         <div class="form-group">
-            <label for="dob">your date of birth</label>
-            {{ form.dob(class="form-control", placeholder="enter your password...", id="dob") }}
+            <label for="healthinfo">your relevant health information</label>
+            {{ form.healthinfo(class="form-control", placeholder="enter your health information...", id="healthinfo") }}
+            <small class="form-text text-muted">**not necessary for coaches</small>
         </div>
 
         <div class="form-group">
             <label for="pb">your personal bests</label>
             {{ form.pb(class="form-control", placeholder="enter your password...", id="pb") }}
+            <small class="form-text text-muted">**not necessary for coaches</small>
         </div>
     
         <div class="form-group">
             <label for="dom">your dominant side</label>
+            <small class="form-text text-muted">**not necessary for coaches</small>
 
-            <div name="dom">
-                {{ form.right(class="form-control", id="right") }}
-                {{ form.left(class="form-control", id="left") }}
+            <div class="bool-box" name="dom">
+
+                <div class="bool-opt">
+                    <label for="left">left</label>
+                    {{ form.left(class="form-control", id="left") }}
+                </div>
+
+                <div class="bool-opt">
+                    <label for="right">right</label>
+                    {{ form.right(class="form-control", id="right") }}
+                </div>
+                
             </div>
             
         </div>
-    
+
         <div class="form-group">
             {{ form.submit(id="submit-btn", class="btn btn-primary", value="sign up") }}
         </div>

@@ -20,6 +20,14 @@ body {
   padding: 0%
 }
 
+a{
+  color: rgb(4, 48, 27);
+}
+
+a:hover{
+  color: rgba(0, 131, 70, 0.75)
+}
+
 .nav-logo{
   height: 30px;
   width: 102.4px;
@@ -31,6 +39,23 @@ body {
   transform: scale(1.05);
 }
 
+.navbar-toggler{
+  color:rgb(4, 48, 27) !important;
+  border: none !important;
+  background-color: transparent !important; 
+}
+
+.navbar-toggler-icon{
+  font-size: 200%;
+}
+
+.navbar-toggler-icon:hover{
+color:rgb(41, 126, 85);
+}
+
+.navbar-toggler:focus{
+  outline: none;
+}
 
 nav{
   background: transparent;
@@ -68,10 +93,11 @@ button{
   width: 30%;
   background: transparent;
   border: none;
+  text-align: left;
 }
 
 #continue-btn:hover{
-  border-bottom: #04301B 2px solid;
+color:#1a7c47
 }
 
 #home-page{
@@ -115,7 +141,7 @@ button{
   }
 }
 
-.home-subtitle{
+.subtitle{
   font-size: 300%;
   text-align: left;
   background-image: linear-gradient(
@@ -145,28 +171,67 @@ button{
 }
 
 .home-cat{
-  padding: 15%;
-  padding-top: 15%;
-  padding-bottom: 25%;
+  padding: 8%;
   height: 100%;
   margin:0% !important;
   flex-direction: column;
-
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   text-align: center;
 }
 
+.home-cat p{
+  text-align: left;
+  width: 40%;
+}
+
+#home-cat1, #home-cat3{
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 #home-cat2{
+  align-items: flex-end;
+}
+
+#home-cat2 p{
+  text-align: right;
+}
+
+#home-cat2 #continue-btn{
+  text-align: right;
+}
+
+#home-cat2 .subtitle{
   text-align: right;
 }
 
 /* --------------------------------- ROSTER --------------------------------- */
-.roster-textarea{
-  width: 600px;
-  height: 100px;
-  border: 0px;
+#roster{
+  display:flex;
+}
+
+#roster-form{
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  margin: 5%;
+  padding: 2%;
+}
+
+.roster-player-info{
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  margin: 5%;
+  color:rgb(4, 48, 27);
+  padding: 5%;
+}
+
+#roster-roster{
+  margin: 5%;
+  width: 50%;
+}
+
+.roster-player-info p{
+  font-size: 120%;
 }
 
 
@@ -198,12 +263,11 @@ button{
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-#right{
-  display: inline;
-}
-
-#left{
-  display: inline;
+.bool-box{
+  display: flex;
+  /* flex-direction: column; */
+  width:30%;
+  justify-content: space-around;
 }
 
 .form-group{
@@ -216,48 +280,16 @@ button{
   margin-bottom: 5%;
 }
 
-/* ---------------------------------- player or coach --------------------------------- */
-
-#player-coach-page{
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background-color: rgba(255, 160, 122, 0.65); */
-}
-
-#player-coach-box{
-  height: 100%;
-  width: 60%;
-  margin: 5%;
-  padding: 4%;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 8%;
-}
-
-#player-coach-box h3{
-  text-align: center;
-  color:rgb(4, 48, 27);
-}
-
-#player-coach-opts{
-  display: flex;
-  justify-content: center;
-  height: 80%;
-  width: 100%;
-}
-
 #submit-btn{
   border: none !important;
-  background-color:rgba(255, 255, 255, 0.5)!important;
+  background-color: rgba(0, 255, 135, 0.8) !important;
   width: 100%;
   height: 15%;
   color: rgb(4, 48, 27);
-  transition: transform .2s;
 }
 
 #submit-btn:hover{
-  transform: scale(1.07);
+  background-color: rgba(0, 255, 135, 0.4) !important;
 }
 
 /* ---------------------------------- LOGIN --------------------------------- */
@@ -277,4 +309,144 @@ button{
   /* background-color: #E9E7EB; */
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8%;
+}
+
+#login-btn{
+  background-color: rgba(0, 255, 135, 0.8);
+  color: rgb(4, 48, 27);
+  outline: none;
+  border: none;
+}
+
+.login-box a{
+  text-decoration: underline;
+}
+
+#login-btn:hover{
+  background-color: rgba(0, 255, 135, 0.4);
+}
+
+/* ---------------------------------- PROFILE --------------------------------- */
+#profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-box{
+  background:rgba(219, 245, 233, 0.516);
+  padding: 5%;
+  width: 45%;
+  border-radius: 8%;
+}
+
+.profile-box .subtitle{
+  font-size: 150%;
+}
+
+.profile-box a:hover{
+  color:rgb(41, 126, 85) !important;
+}
+
+/* ---------------------------------- HEALTH LOG --------------------------------- */
+#log{
+  display: flex;
+  justify-content: center;
+}
+
+#log-content{
+  display: flex;
+  justify-content: space-around;
+  width: 95%;
+  margin-top: 5%;
+}
+
+#log-title{
+  background-image: linear-gradient(
+    -225deg,
+    #1a7c47 0%,
+    #2d0d41 29%,
+    #4f3378 67%,
+    rgb(4, 48, 27) 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+}
+
+#log-form{
+  height: 440px;
+  width: 48%;
+  padding: 2%;
+  background-color: rgba(219, 245, 233, 0.516);
+  border-radius: 8%;
+}
+
+.log-output{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 48%;
+  padding: 2%;
+  padding-top:0%;
+}
+
+.log-title{
+  background-image: linear-gradient(
+    -225deg,
+    #1a7c47 0%,
+    #2d0d41 29%,
+    #4f3378 67%,
+    rgb(4, 48, 27) 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 5s linear infinite;
+  font-size: 140%;
+}
+
+.log-date{
+  font-size: 110%;
+}
+
+.log-log{
+  background-color: rgba(219, 245, 233, 0.516);
+  border-radius: 20px;
+  padding: 5%;
+  margin-bottom: 5%;
+}
+
+.log-msg{
+  width:100%;
+  overflow-wrap: break-word;
+}
+
+/* ---------------------------------- LOGOUT --------------------------------- */
+#logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  margin: 5%;
+  padding: 2%;
+}
+
+#logout .subtitle{
+  text-align: center;
+  font-size: 500%;
 }

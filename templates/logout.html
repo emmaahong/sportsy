@@ -5,5 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    you are logged out
+<div id="logout">
+    <h1 class='subtitle'>you are logged out. see you later!</h1>
+    <a id='logout-login' href="{{ url_for('login') }}">login again</a>
+</div>  
 {% endblock %} 

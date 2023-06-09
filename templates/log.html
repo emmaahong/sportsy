@@ -5,5 +5,36 @@
 {% endblock %}
 
 {% block body %}
-<h1>log</h1>
+<div id="log">
+    <div id="log-content">
+        {{ form.hidden_tag() }}
+        <form method ="POST" class="log-input" id="log-form" action="{{ url_for('log') }}">
+            <h1 id="log-title">log</h1>
+            <div class="form-group">
+                {{ form.log(class="form-control", rows="10", placeholder="log your health right now...", id="inputLog") }}
+            </div>
+    
+            <div class="form-group">
+                {{ form.log_submit(id="submit-btn", class="btn btn-primary", value="submit") }}
+            </div>
+        </form>
+    
+        <div class="log-output">
+            {% for log in log_data %}
+                {% if log.id == current_user.id %}
+                    <div class='log-log'>
+                        <div class="log-head">
+                            <h3 class="log-title">health log</h3>
+                            <h3 class="log-date">{{day}}/{{month}}/{{year}}</h3>
+                        </div>
+                        <p class="log-msg">{{ log.log }}</p>
+                    </div>
+                {% endif %}
+                
+        {% endfor %}
+        </div>
+    </div>
+   
+</div>
+
 {% endblock %}
